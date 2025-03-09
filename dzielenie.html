@@ -6,46 +6,48 @@
     <title>Dzielenie - Matmania</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             text-align: center;
-            background-color: #f0f0f0;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
             margin: 0;
             padding: 20px;
-        }
-        h2 {
             color: #333;
         }
+        h2 {
+            color: #fff;
+        }
         button {
-            padding: 10px 20px;
+            padding: 15px 30px;
             margin: 10px;
             font-size: 16px;
-            cursor: pointer;
+ cursor: pointer;
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.2s;
         }
         button:hover {
             background-color: #45a049;
+            transform: scale(1.05);
         }
         footer {
             margin-top: 20px;
             font-size: 14px;
-            color: #777;
+            color: #fff;
         }
         .version {
             position: absolute;
             top: 10px;
             left: 10px;
             font-size: 14px;
-            color: #777;
+            color: #fff;
         }
     </style>
 </head>
 <body>
 
-    <div class="version">Wersja 1.1 </div>
+    <div class="version">Wersja 1.1</div>
     <h2>Dzielenie</h2>
     <p id="dzielenie-wynik"></p>
     <input type="number" id="dzielenie-odpowiedz" placeholder="Twoja odpowiedź">
@@ -56,30 +58,30 @@
     <p id="dzielenie-punkty">Punkty: 0</p>
 
     <script>
-        let correctAnswer;
-        let points = 0;
+        let punkty = 0;
+        let a, b;
 
         function generateDzielenie() {
-            const num1 = Math.floor(Math.random() * 10) + 1;
-            const num2 = Math.floor(Math.random() * 9) + 1; // Ensure num2 is not zero
-            correctAnswer = (num1 / num2).toFixed(2); // Limit to two decimal places
-            document.getElementById('dzielenie-wynik').innerText = `${num1} / ${num2} = ?`;
+            b = Math.floor(Math.random() * 9) + 1; // Unikaj dzielenia przez 0
+            a = b * (Math.floor(Math.random() * 10) + 1); // Upewnij się, że a jest podzielne przez b
+            document.getElementById('dzielenie-wynik').innerText = `Ile to ${a} ÷ ${b}?`;
             document.getElementById('dzielenie-odpowiedz').value = '';
             document.getElementById('dzielenie-feedback').innerText = '';
         }
-        
+
         function checkDzielenie() {
-            const userAnswer = parseFloat(document.getElementById('dzielenie-odpowiedz').value);
-            if (userAnswer.toFixed(2) === correctAnswer) {
-                points++;
-                document.getElementById('dzielenie-feedback').innerText = 'Brawo! Poprawna odpowiedź!';
+            const odpowiedz = parseInt(document.getElementById('dzielenie-odpowiedz').value);
+            if (odpowiedz === a / b) {
+                punkty++;
+                document.getElementById('dzielenie-feedback').innerText = 'Dobrze!';
             } else {
-                document.getElementById('dzielenie-feedback').innerText = `Niestety, błędna odpowiedź. Poprawna to: ${correctAnswer}`;
+                document.getElementById('dzielenie-feedback').innerText = `Źle! Poprawna odpowiedź to ${a / b}.`;
             }
-            document.getElementById('dzielenie-punkty').innerText = `Punkty: ${points}`;
+            document.getElementById('dzielenie-punkty').innerText = `Punkty: ${punkty}`;
+            generateDzielenie();
         }
 
-        generateDzielenie();
+        window.onload = generateDzielenie;
     </script>
 
     <footer>
