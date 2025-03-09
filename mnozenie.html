@@ -24,15 +24,37 @@
 
     <h2>Mnożenie</h2>
     <p id="mnozenie-wynik"></p>
+    <input type="number" id="mnozenie-odpowiedz" placeholder="Twoja odpowiedź">
+    <button onclick="checkMnozenie()">Sprawdź odpowiedź</button>
     <button onclick="generateMnozenie()">Generuj nowe zadanie</button>
     <button onclick="location.href='index.html'">Powrót</button>
+    <p id="mnozenie-feedback"></p>
+    <p id="mnozenie-punkty">Punkty: 0</p>
 
     <script>
+        let correctAnswer;
+        let points = 0;
+
         function generateMnozenie() {
             const num1 = Math.floor(Math.random() * 10) + 1;
             const num2 = Math.floor(Math.random() * 10) + 1;
+            correctAnswer = num1 * num2;
             document.getElementById('mnozenie-wynik').innerText = `${num1} * ${num2} = ?`;
+            document.getElementById('mnozenie-odpowiedz').value = '';
+            document.getElementById('mnozenie-feedback').innerText = '';
         }
+        
+        function checkMnozenie() {
+            const userAnswer = parseInt(document.getElementById('mnozenie-odpowiedz').value);
+            if (userAnswer === correctAnswer) {
+                points++;
+                document.getElementById('mnozenie-feedback').innerText = 'Brawo! Poprawna odpowiedź!';
+            } else {
+                document.getElementById('mnozenie-feedback').innerText = `Niestety, błędna odpowiedź. Poprawna to: ${correctAnswer}`;
+            }
+            document.getElementById('mnozenie-punkty').innerText = `Punkty: ${points}`;
+        }
+
         generateMnozenie();
     </script>
 
