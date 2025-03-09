@@ -6,17 +6,18 @@
     <title>Dodawanie - Matmania</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             text-align: center;
-            background-color: #f0f0f0;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
             margin: 0;
             padding: 20px;
-        }
-        h2 {
             color: #333;
         }
+        h2 {
+            color: #fff;
+        }
         button {
-            padding: 10px 20px;
+            padding: 15px 30px;
             margin: 10px;
             font-size: 16px;
             cursor: pointer;
@@ -24,22 +25,23 @@
             color: white;
             border: none;
             border-radius: 5px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.2s;
         }
         button:hover {
             background-color: #45a049;
+            transform: scale(1.05);
         }
         footer {
             margin-top: 20px;
             font-size: 14px;
-            color: #777;
+            color: #fff;
         }
         .version {
             position: absolute;
             top: 10px;
             left: 10px;
             font-size: 14px;
-            color: #777;
+            color: #fff;
         }
     </style>
 </head>
@@ -56,30 +58,30 @@
     <p id="dodawanie-punkty">Punkty: 0</p>
 
     <script>
-        let correctAnswer;
-        let points = 0;
+        let punkty = 0;
+        let a, b;
 
         function generateDodawanie() {
-            const num1 = Math.floor(Math.random() * 10) + 1;
-            const num2 = Math.floor(Math.random() * 10) + 1;
-            correctAnswer = num1 + num2;
-            document.getElementById('dodawanie-wynik').innerText = `${num1} + ${num2} = ?`;
+            a = Math.floor(Math.random() * 10) + 1;
+            b = Math.floor(Math.random() * 10) + 1;
+            document.getElementById('dodawanie-wynik').innerText = `Ile to ${a} + ${b}?`;
             document.getElementById('dodawanie-odpowiedz').value = '';
             document.getElementById('dodawanie-feedback').innerText = '';
         }
-        
+
         function checkDodawanie() {
-            const userAnswer = parseInt(document.getElementById('dodawanie-odpowiedz').value);
-            if (userAnswer === correctAnswer) {
-                points++;
-                document.getElementById('dodawanie-feedback').innerText = 'Brawo! Poprawna odpowiedź!';
+            const odpowiedz = parseInt(document.getElementById('dodawanie-odpowiedz').value);
+            if (odpowiedz === a + b) {
+                punkty++;
+                document.getElementById('dodawanie-feedback').innerText = 'Dobrze!';
             } else {
-                document.getElementById('dodawanie-feedback').innerText = `Niestety, błędna odpowiedź. Poprawna to: ${correctAnswer}`;
+                document.getElementById('dodawanie-feedback').innerText = `Źle! Poprawna odpowiedź to ${a + b}.`;
             }
-            document.getElementById('dodawanie-punkty').innerText = `Punkty: ${points}`;
+            document.getElementById('dodawanie-punkty').innerText = ` Punkty: ${punkty}`;
+            generateDodawanie();
         }
 
-        generateDodawanie();
+        window.onload = generateDodawanie;
     </script>
 
     <footer>
