@@ -12,29 +12,79 @@
             margin: 0;
             padding: 20px;
         }
+        h2 {
+            color: #333;
+        }
         button {
             padding: 10px 20px;
             margin: 10px;
             font-size: 16px;
             cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+        .version {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 14px;
+            color: #777;
         }
     </style>
 </head>
 <body>
 
+    <div class="version">Wersja 1.1 </div>
     <h2>Dzielenie</h2>
     <p id="dzielenie-wynik"></p>
+    <input type="number" id="dzielenie-odpowiedz" placeholder="Twoja odpowiedź">
+    <button onclick="checkDzielenie()">Sprawdź odpowiedź</button>
     <button onclick="generateDzielenie()">Generuj nowe zadanie</button>
     <button onclick="location.href='index.html'">Powrót</button>
+    <p id="dzielenie-feedback"></p>
+    <p id="dzielenie-punkty">Punkty: 0</p>
 
     <script>
+        let correctAnswer;
+        let points = 0;
+
         function generateDzielenie() {
             const num1 = Math.floor(Math.random() * 10) + 1;
-            const num2 = Math.floor(Math.random() * 10) + 1;
+            const num2 = Math.floor(Math.random() * 9) + 1; // Ensure num2 is not zero
+            correctAnswer = (num1 / num2).toFixed(2); // Limit to two decimal places
             document.getElementById('dzielenie-wynik').innerText = `${num1} / ${num2} = ?`;
+            document.getElementById('dzielenie-odpowiedz').value = '';
+            document.getElementById('dzielenie-feedback').innerText = '';
         }
+        
+        function checkDzielenie() {
+            const userAnswer = parseFloat(document.getElementById('dzielenie-odpowiedz').value);
+            if (userAnswer.toFixed(2) === correctAnswer) {
+                points++;
+                document.getElementById('dzielenie-feedback').innerText = 'Brawo! Poprawna odpowiedź!';
+            } else {
+                document.getElementById('dzielenie-feedback').innerText = `Niestety, błędna odpowiedź. Poprawna to: ${correctAnswer}`;
+            }
+            document.getElementById('dzielenie-punkty').innerText = `Punkty: ${points}`;
+        }
+
         generateDzielenie();
     </script>
+
+    <footer>
+        &copy; Krystian P 2025
+    </footer>
 
 </body>
 </html>
