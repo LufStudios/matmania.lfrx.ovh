@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Odejmowanie - Matmania</title>
+    <title>Dodawanie - Matmania</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,29 +12,79 @@
             margin: 0;
             padding: 20px;
         }
+        h2 {
+            color: #333;
+        }
         button {
             padding: 10px 20px;
             margin: 10px;
             font-size: 16px;
             cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+        .version {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 14px;
+            color: #777;
         }
     </style>
 </head>
 <body>
 
-    <h2>Odejmowanie</h2>
-    <p id="odejmowanie-wynik"></p>
-    <button onclick="generateOdejmowanie()">Generuj nowe zadanie</button>
+    <div class="version">Wersja 1.1</div>
+    <h2>Dodawanie</h2>
+    <p id="dodawanie-wynik"></p>
+    <input type="number" id="dodawanie-odpowiedz" placeholder="Twoja odpowiedź">
+    <button onclick="checkDodawanie()">Sprawdź odpowiedź</button>
+    <button onclick="generateDodawanie()">Generuj nowe zadanie</button>
     <button onclick="location.href='index.html'">Powrót</button>
+    <p id="dodawanie-feedback"></p>
+    <p id="dodawanie-punkty">Punkty: 0</p>
 
     <script>
-        function generateOdejmowanie() {
+        let correctAnswer;
+        let points = 0;
+
+        function generateDodawanie() {
             const num1 = Math.floor(Math.random() * 10) + 1;
             const num2 = Math.floor(Math.random() * 10) + 1;
-            document.getElementById('odejmowanie-wynik').innerText = `${num1} - ${num2} = ?`;
+            correctAnswer = num1 + num2;
+            document.getElementById('dodawanie-wynik').innerText = `${num1} + ${num2} = ?`;
+            document.getElementById('dodawanie-odpowiedz').value = '';
+            document.getElementById('dodawanie-feedback').innerText = '';
         }
-        generateOdejmowanie();
+        
+        function checkDodawanie() {
+            const userAnswer = parseInt(document.getElementById('dodawanie-odpowiedz').value);
+            if (userAnswer === correctAnswer) {
+                points++;
+                document.getElementById('dodawanie-feedback').innerText = 'Brawo! Poprawna odpowiedź!';
+            } else {
+                document.getElementById('dodawanie-feedback').innerText = `Niestety, błędna odpowiedź. Poprawna to: ${correctAnswer}`;
+            }
+            document.getElementById('dodawanie-punkty').innerText = `Punkty: ${points}`;
+        }
+
+        generateDodawanie();
     </script>
+
+    <footer>
+        &copy; Krystian P 2025
+    </footer>
 
 </body>
 </html>
