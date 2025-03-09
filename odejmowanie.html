@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dzielenie - Matmania</title>
+    <title>Odejmowanie - Matmania</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -20,7 +20,7 @@
             padding: 15px 30px;
             margin: 10px;
             font-size: 16px;
- cursor: pointer;
+            cursor: pointer;
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -48,49 +48,45 @@
 <body>
 
     <div class="version">Wersja 1.1</div>
-    <h2>Dzielenie</h2>
-    <p id="dzielenie-wynik"></p>
-    <input type="number" id="dzielenie-odpowiedz" placeholder="Twoja odpowiedź">
-    <button onclick="checkDzielenie()">Sprawdź odpowiedź</button>
-    <button onclick="generateDzielenie()">Generuj nowe zadanie</button>
+    <h2>Odejmowanie</h2>
+    <p id="odejmowanie-wynik"></p>
+    <input type="number" id="odejmowanie-odpowiedz" placeholder="Twoja odpowiedź">
+    <button onclick="checkOdejmowanie()">Sprawdź odpowiedź</button>
+    <button onclick="generateOdejmowanie()">Generuj nowe zadanie</button>
     <button onclick="location.href='index.html'">Powrót</button>
-    <p id="dzielenie-feedback"></p>
-    <p id="dzielenie-punkty">Punkty: 0</p>
+    <p id="odejmowanie-feedback"></p>
+    <p id="odejmowanie-punkty">Punkty: 0</p>
 
     <script>
         let punkty = 0;
         let a, b;
 
-        function generateDzielenie() {
-            b = Math.floor(Math.random() * 9) + 1; // Unikaj dzielenia przez 0
-            a = b * (Math.floor(Math.random() * 10) + 1); // Upewnij się, że a jest podzielne przez b
-            document.getElementById('dzielenie-wynik').innerText = `Ile to ${a} ÷ ${b}?`;
-            document.getElementById('dzielenie-odpowiedz').value = '';
-            document.getElementById('dzielenie-feedback').innerText = '';
+        function generateOdejmowanie() {
+            a = Math.floor(Math.random() * 10) + 1;
+            b = Math.floor(Math.random() * 10) + 1;
+            document.getElementById('odejmowanie-wynik').innerText = `Ile to ${a} - ${b}?`;
+            document.getElementById('odejmowanie-odpowiedz').value = '';
+            document.getElementById('odejmowanie-feedback').innerText = '';
         }
 
-        function checkDzielenie() {
-            const odpowiedz = parseInt(document.getElementById('dzielenie-odpowiedz').value);
-            if (odpowiedz === a / b) {
+        function checkOdejmowanie() {
+            const odpowiedz = parseInt(document.getElementById('odejmowanie-odpowiedz').value);
+            if (odpowiedz === a - b) {
                 punkty++;
-                document.getElementById('dzielenie-feedback').innerText = 'Dobrze!';
+                document.getElementById('odejmowanie-feedback').innerText = 'Dobrze!';
             } else {
-                document.getElementById('dzielenie-feedback').innerText = `Źle! Poprawna odpowiedź to ${a / b}.`;
+                document.getElementById('odejmowanie-feedback').innerText = `Źle! Poprawna odpowiedź to ${a - b}.`;
             }
-            document.getElementById('dzielenie-punkty').innerText = `Punkty: ${punkty}`;
-            generateDzielenie();
+            document.getElementById('odejmowanie-punkty').innerText = `Punkty: ${punkty}`;
+            generateOdejmowanie();
         }
 
-        window.onload = generateDzielenie;
+        window.onload = generateOdejmowanie;
     </script>
 
     <footer>
         &copy; Krystian P 2025
     </footer>
-
-</body>
-</html>
-
 
 </body>
 </html>
